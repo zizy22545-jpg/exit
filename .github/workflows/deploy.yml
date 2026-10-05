@@ -36,6 +36,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Prepare hosting directory
+        run: mkdir -p .openai
+
       - name: Build
         run: pnpm build
 
