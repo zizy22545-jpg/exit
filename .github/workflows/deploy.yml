@@ -42,7 +42,11 @@ jobs:
           echo '{}' > .openai/hosting.json
 
       - name: Build
-        run: pnpm build
+        run: |
+          pnpm exec tsc --noEmit
+          pnpm exec vite build
+          touch dist/.nojekyll
+          node scripts/prepare-sites.mjs
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
