@@ -1,8 +1,12 @@
 export type RiskLevel = 'low' | 'medium' | 'high';
 export type YesNo = 'yes' | 'no';
+export type DealDirection = 'export' | 'import';
+export type RequirementStatus = 'confirmed' | 'potential' | 'additional-review';
 
 export interface DealData {
-  destinationCountry: string;
+  direction: DealDirection;
+  partnerCountry: string;
+  originCountry: string;
   counterpartyCountry: string;
   counterpartyName: string;
   registrationNumber: string;
@@ -16,6 +20,7 @@ export interface DealData {
   paymentCurrency: string;
   payerBank: string;
   recipientBank: string;
+  incoterms: string;
   intermediaryBank: boolean;
   intermediaryBankName: string;
   transit: YesNo;
@@ -23,6 +28,7 @@ export interface DealData {
   endUserKnown: YesNo;
   endUser: string;
   civilianUse: 'yes' | 'no' | 'unsure';
+  additionalInfo: string;
 }
 
 export interface RiskCategory {
@@ -41,6 +47,22 @@ export interface Finding {
   recommendation: string;
 }
 
+export interface RequirementItem {
+  id: string;
+  area: string;
+  status: RequirementStatus;
+  requirement: string;
+  action: string;
+  documents: string[];
+  authority?: string;
+}
+
+export interface LegalSource {
+  title: string;
+  url: string;
+  note: string;
+}
+
 export interface AnalysisResult {
   id: string;
   date: string;
@@ -48,7 +70,13 @@ export interface AnalysisResult {
   level: RiskLevel;
   categories: RiskCategory[];
   findings: Finding[];
+  requirements: RequirementItem[];
   documents: string[];
   recommendations: string[];
-  regulations: string[];
+  legalSources: LegalSource[];
+}
+
+/** Boundary for the future Google Sheets legal-rules adapter. */
+export interface DealAnalyzer {
+  analyze(deal: DealData): AnalysisResult | Promise<AnalysisResult>;
 }
