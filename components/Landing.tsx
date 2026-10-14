@@ -6,7 +6,7 @@ export function Landing({ onStart, onDemo }:{onStart:()=>void;onDemo:()=>void}) 
   useEffect(()=>{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) videoRef.current?.pause()},[]);
   return <main className="landing-page">
     <div className="hero-stage" id="top">
-      <video ref={videoRef} className="hero-video" autoPlay muted loop playsInline preload="metadata" poster="./assets/images/ocean-poster.jpg" aria-hidden="true">
+      <video ref={videoRef} className="hero-video" autoPlay muted loop playsInline preload="metadata" poster="./assets/images/ocean-poster.jpg?v=20261014" aria-hidden="true">
         <source src="./assets/videos/ocean.mp4" type="video/mp4" />
       </video>
       <div className="hero-overlay" />
